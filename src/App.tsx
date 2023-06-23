@@ -6,9 +6,9 @@ import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 
 
 function App() {
-    const [count, setCount] = useState(0);
-    const [maxValue, setMaxValue] = useState(5);
-    const [startValue, setStartValue] = useState(0);
+    const [count, setCount] = useState(Number(localStorage.getItem("startValue")));
+    const [maxValue, setMaxValue] = useState(Number(localStorage.getItem("maxValue")));
+    const [startValue, setStartValue] = useState(Number(localStorage.getItem("startValue")));
 
     return (
 
@@ -17,18 +17,17 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"} element={<Counter count={count} setCount={setCount} maxValue={maxValue}
-                                                        startValue={startValue}/>}/>
+                                                      startValue={startValue}/>}/>
                     <Route path={"/counter"} element={<Counter count={count} setCount={setCount} maxValue={maxValue}
-                                                               startValue={startValue}/>}/>
+                                                             startValue={startValue}/>}/>
                     <Route path={"/settings"} element={<CounterSettings maxValue={maxValue} setMaxValue={setMaxValue}
-                                                                        startValue={startValue}
-                                                                        setStartValue={setStartValue}
-                                                                        setCount={setCount}/>}/>
+                                                                      startValue={startValue}
+                                                                      setStartValue={setStartValue}
+                                                                      setCount={setCount}/>}/>
                 </Routes>
 
             </BrowserRouter>
         </div>
     );
 }
-
 export default App;

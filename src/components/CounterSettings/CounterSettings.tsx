@@ -25,9 +25,11 @@ export const CounterSettings = (props: CounterSettings) => {
     const onInputChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
         if(id === inputMaxValueId && Number(e.currentTarget.value) > startValue) {
             setMaxValue(Number(e.currentTarget.value))
+            localStorage.setItem("maxValue", e.currentTarget.value)
         }
         if(id === inputStartValueId && Number(e.currentTarget.value) < maxValue && Number(e.currentTarget.value) > 0) {
             setStartValue(Number(e.currentTarget.value))
+            localStorage.setItem("startValue", e.currentTarget.value)
         }
     };
 
