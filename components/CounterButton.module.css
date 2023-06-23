@@ -1,0 +1,14 @@
+.default {
+    margin: 10px;
+    width: 80px;
+    height: 60px;
+    border-radius: 10%;
+    border: none;
+    font-size: 10px;
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.disabled {
+    opacity: 0.5;
+}
