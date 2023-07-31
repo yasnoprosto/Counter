@@ -1,22 +1,21 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import s from "./CounterSettings.module.css";
-import {CounterSettingsInput} from "./CounterSettingsInput/CounterSettingsInput";
+import {CounterSettingsInput} from "./CounterSettingsInput/CounterSettingsInputType";
 import {CounterButton} from "../Counter/CounterButton/CounterButton";
 import {v1} from "uuid";
 import {useNavigate } from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {setStartValueAC} from "../redux/counterReducer";
+import {setMaxValueAC} from "../redux/maxValueReducer";
 
-type CounterSettings = {
+type CounterSettingsType = {
     maxValue: number
-    setMaxValue: React.Dispatch<React.SetStateAction<number>>
     startValue: number
-    setStartValue: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const CounterSettings = (props: CounterSettings) => {
+export const CounterSettings = (props: CounterSettingsType) => {
 
-    const {maxValue, setMaxValue, startValue, setStartValue} = props
+    const {maxValue, startValue} = props
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -26,16 +25,12 @@ export const CounterSettings = (props: CounterSettings) => {
 
 
     const onInputChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
-        if(id === inputMaxValueId && Number(e.currentTarget.value) >= startValue) {
-            setMaxValue(Number(e.currentTarget.value))
-            if(maxValue === startValue) {
-                setStartValue(maxValue - 1)
-            }
+        if(id === inputMaxValueId && Number(e.currentTarget.value) > startValue) {
+            dispatch(setMaxValueAC(Number(e.currentTarget.value)))
         }
         if(id === inputStartValueId
-            && Number(e.currentTarget.value) <= maxValue
+            && Number(e.currentTarget.value) < maxValue
             && Number(e.currentTarget.value) > 0) {
-            setStartValue(Number(e.currentTarget.value))
             dispatch(setStartValueAC(Number(e.currentTarget.value)))
         }
     };

@@ -1,4 +1,5 @@
-import {loadState} from "../localStorage/localStorage";
+import {loadState, saveState} from "../localStorage/localStorage";
+
 
 type incrementCounterAT = {
     type: "INCREMENT"
@@ -15,15 +16,21 @@ type startValueAT = {
 
 type ActionsType = incrementCounterAT | resetCounterAT | startValueAT
 
-const initialState: number = loadState().counter;
+loadState() ? loadState() : saveState(0);
+
+const initialState = loadState().counter ? loadState().counter : 0;
 
 export const counterReducer = (state: number = initialState, action: ActionsType): number => {
+
     switch (action.type) {
         case "INCREMENT": {
             return state + 1;
         }
         case "RESET": {
-            return 0;
+                if (loadState().startValue) {
+                    return loadState().startValue;
+                }
+                    return 0;
         }
         case "SET-START-VALUE": {
             return action.value;
@@ -33,7 +40,7 @@ export const counterReducer = (state: number = initialState, action: ActionsType
     }
 };
 
-export const incrementCounterAC = () : incrementCounterAT => {
+export const incrementCounterAC = (): incrementCounterAT => {
     return {type: "INCREMENT"};
 };
 
@@ -42,5 +49,8 @@ export const resetCounterAC = (): resetCounterAT => {
 };
 
 export const setStartValueAC = (value: number): startValueAT => {
-    return { type: "SET-START-VALUE", value }
+    return {
+        type: "SET-START-VALUE",
+        value
+    };
 };
