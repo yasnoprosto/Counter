@@ -1,46 +1,34 @@
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {CounterDisplay} from "./CounterDisplay/CounterDisplay";
 import {CounterButton} from "./CounterButton/CounterButton";
 import s from "./Counter.module.css";
 import {useNavigate} from "react-router-dom";
+import {incrementCounterAC, resetCounterAC} from "../redux/counterReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {store} from "../redux/store";
 
 type CounterProps = {
     maxValue: number
     startValue: number
-    count: number
-    setCount: React.Dispatch<React.SetStateAction<number>>
 };
 
 
 const Counter = (props: CounterProps) => {
-    const {count, setCount, maxValue, startValue} = props;
+    const {maxValue, startValue} = props;
     const navigate = useNavigate();
-
-
-    const onClick = (type: "increment" | "reset") => {
-        if (count < maxValue) {
-            switch (type) {
-                case "increment":
-                    return setCount(count + 1);
-            }
-        }
-        switch (type) {
-            case "reset":
-                return setCount(startValue);
-        }
-    };
+    const dispatch = useDispatch()
+    const count = useSelector(state => store.getState().counterReducer)
 
     const setIncrement = () => {
-        onClick("increment");
+        dispatch(incrementCounterAC());
     };
     const setReset = () => {
-        onClick("reset");
+        dispatch(resetCounterAC());
     };
 
     const setPath = () => {
         navigate('/settings');
     };
-
 
 
     return (
