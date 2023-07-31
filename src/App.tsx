@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "./App.css";
 import Counter from "./components/Counter/Counter";
 import {CounterSettings} from "./components/CounterSettings/CounterSettings";
-import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {} from "./components/localStorage/localStorage";
+import {useSelector} from "react-redux";
 import {store} from "./components/redux/store";
-import {loadState} from "./components/localStorage/localStorage";
 
 
 function App() {
-    const [maxValue, setMaxValue] = useState(10);
-    const [startValue, setStartValue] = useState(0);
 
+    const maxValue = useSelector(state => store.getState().maxValueReducer)
+    const startValue = useSelector(state => store.getState().startValueReducer)
 
-    console.log(loadState().counter);
     return (
 
         <div className={"App"}>
@@ -23,9 +23,8 @@ function App() {
                                                       startValue={startValue}/>}/>
                     <Route path={"/counter"} element={<Counter maxValue={maxValue}
                                                              startValue={startValue}/>}/>
-                    <Route path={"/settings"} element={<CounterSettings maxValue={maxValue} setMaxValue={setMaxValue}
-                                                                      startValue={startValue}
-                                                                      setStartValue={setStartValue}/>}/>
+                    <Route path={"/settings"} element={<CounterSettings maxValue={maxValue}
+                                                                      startValue={startValue}/>}/>
                 </Routes>
 
             </BrowserRouter>

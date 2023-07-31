@@ -1,15 +1,14 @@
 import React, {ChangeEvent} from "react";
-import value from "*.png";
 import s from "./CounterSettingsInput.module.css"
 
-type CounterSettingsInput = {
+type CounterSettingsInputType = {
     id: string;
     name: string
     callback:(id: string, e: ChangeEvent<HTMLInputElement>)=>void
     value: any
 }
 
-export const CounterSettingsInput = (props: CounterSettingsInput) => {
+export const CounterSettingsInput = (props: CounterSettingsInputType) => {
     const {name, callback, value, id} = props
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

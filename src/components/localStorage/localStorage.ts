@@ -10,11 +10,16 @@ export const loadState = () => {
     }
 };
 
-export const saveState = (state: any) => {
+
+
+export const saveState = (state: {
+
+}) => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem('state', serializedState);
+        localStorage.setItem("state", serializedState);
     } catch {
         // ignore write errors
     }
 };
+

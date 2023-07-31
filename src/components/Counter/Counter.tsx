@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React from "react";
 import {CounterDisplay} from "./CounterDisplay/CounterDisplay";
 import {CounterButton} from "./CounterButton/CounterButton";
 import s from "./Counter.module.css";
@@ -43,7 +43,7 @@ const Counter = (props: CounterProps) => {
                 <CounterButton
                     name={"reset"}
                     callback={setReset}
-                    disabled={count === startValue}/>
+                    disabled={count <= startValue}/>
 
                 <CounterButton
                     name={"set"}
