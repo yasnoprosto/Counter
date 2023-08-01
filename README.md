@@ -1,1 +1,1 @@
-Deploy here: https://counter-eight-blue.vercel.app/counter
+Deployed here: https://counter-eight-blue.vercel.app/counter
